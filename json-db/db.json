@@ -40,7 +40,18 @@
         
        
         }
+
+        {
+                 
+            "id":5,
+            "titulo": "Conocimientos desde cero",
+            "image": "https://drupal.ed.team/sites/default/files/imagenes-cdn-edteam/2019-06/Seo%20desde%20cero.png",
+            "price": 50.2,
+            "professor":"Alexander Barajas"
         
+       
+        }
+
     
     ]
 }
