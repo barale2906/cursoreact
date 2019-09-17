@@ -1,75 +1,59 @@
-import React from "react"
+import React, { Component } from "react"
+import axios from "axios"
 
-const cursos = [
-    {
-             
-        "id":1,
-        "titulo": "React desde cero",
-        "image": "https://drupal.ed.team/sites/default/files/imagenes-cdn-edteam/2019-04/React%20desarrollo%20frotend.png",
-        "price": 40,
-        "profesor":"Beto Quiroga"
-        
-       
-    },
-    {
-             
-        "id":2,
-        "titulo": "typescript",
-        "image": "https://drupal.ed.team/sites/default/files/styles/16_9_medium/public/imagenes-cdn-edteam/2019-08/typescript.png",
-        "price": 150,
-        "profesor":"Luis Aviles"
-    
-   
-    },
-    {
-             
-        "id":3,
-        "titulo": "Firebase",
-        "image": "https://drupal.ed.team/sites/default/files/styles/16_9_medium/public/imagenes-cdn-edteam/2019-07/firebase-android.png",
-        "price": 15,
-        "profesor":"Juan Guillo"
-    
-   
-    },
-    {
-             
-        "id":4,
-        "titulo": "Seo desde cero",
-        "image": "https://drupal.ed.team/sites/default/files/imagenes-cdn-edteam/2019-06/Seo%20desde%20cero.png",
-        "price": 55,
-        "profesor":"Martin Tin"
-    
-   
+
+
+class Course extends Component {
+
+    constructor(props){
+        super(props)
+
+        this.state ={
+            cursoActual: {}
+        }
     }
 
-]
-
-
-const Course = ({ match }) => {
-
-    const cursoActual = cursos.filter ( c => c.id === parseInt(match.params.id))[0]
-
-    return (
-
-        <div className="ed-grid m-grid-3">   
-        { 
-        cursoActual ? (
-
-            <>
-                    <h1 className="m-cols-1">Curso: { cursoActual.titulo }</h1>
-                    <img className="m-cols-1" src={ cursoActual.image } alt={ cursoActual.titulo }/>
-                    <p className="m-cols-2">Profesor { cursoActual.profesor }</p>
-            </>
-
-           
-           ) : 
-                
-                    <h1>El curso no existe</h1>
-         
-        }
-        </div>        
+    componentDidMount() {
+        axios.get(`https://my-json-server.typicode.com/barale2906/json-db/cursos/${this.props.match.params.id}`)
         
-    )
+        .then(resp=> this.setState({
+                    cursoActual: resp.data
+            }))
+        
+
+          
+    }
+
+    render(){
+
+        return (
+
+            <div className="ed-grid m-grid-3">   
+            { 
+            this.state.cursoActual ? (
+    
+                <>
+                        <h1 className="m-cols-1">Curso: { this.state.cursoActual.titulo }</h1>
+                        <img className="m-cols-1" src={ this.state.cursoActual.image } alt={ this.state.cursoActual.titulo }/>
+                        <p className="m-cols-2">Profesor { this.state.cursoActual.profesor }</p>
+                </>
+    
+               
+               ) : 
+                    
+                        <h1>El curso no existe</h1>
+             
+            }
+            </div>        
+            
+        )
+
+    }
+
+
+    
+
+    
 
 }
     

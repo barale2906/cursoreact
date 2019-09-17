@@ -10,6 +10,7 @@ import Home from './paginas/home'
 import Users from './paginas/Users'
 
 
+
 const App = () => (
 
   <Router>
@@ -17,6 +18,7 @@ const App = () => (
     <MainMenu />
 
       <Switch>
+          
           <Route path="/" exact component={ Home }/>
           <Route path="/cursos/:id"  component={ Course }/>
           <Route path="/cursos"  component={ Courses }/>

@@ -2,7 +2,11 @@ import React, { Component } from "react"
 import axios from "axios"
 import CourseGrid from "../organismos/CourseGrid"
 
+const Private = (props) => (
 
+        console.log(props)
+
+)
 
 class Courses extends Component {
 
