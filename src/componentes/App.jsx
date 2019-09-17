@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/styles.scss';
 import Form from "./paginas/Form"
-import CourseGrid from "./organismos/CourseGrid"
+import Courses from "./paginas/Courses"
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Course from "./paginas/Course"
 import MainMenu from "./organismos/MainMenu"
@@ -19,7 +19,7 @@ const App = () => (
       <Switch>
           <Route path="/" exact component={ Home }/>
           <Route path="/cursos/:id"  component={ Course }/>
-          <Route path="/cursos"  component={ CourseGrid }/>
+          <Route path="/cursos"  component={ Courses }/>
           <Route path="/historial/:id"  component={ History }/>
           <Route path="/historial"  component={ History }/>
           <Route path="/usuarios"  component={ Users }/>
