@@ -1,62 +1,53 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
+import useCourse from "../CustomHooks/useCourse"
 
 
 
-class Course extends Component {
+const Course = ({ match }) => {
 
-    constructor(props){
-        super(props)
+    // al usestate se le puede pasar cualquier cosa, un objeto, un entero, un array, un string...
+   
+   const [comment, setComment] = useState("Sin Comentarios")
 
-        this.state ={
-            cursoActual: {}
+   const course = useCourse(match.params.id)
+
+   const myComment = e =>{
+       setComment(e.target.value)
+   }
+    
+    return (
+
+        <div className="ed-grid m-grid-3">   
+        { 
+        course ? (
+
+            <>
+                    <div className="l-block ">
+                        <h1 className="m-cols-1">Curso: { course.titulo }</h1>
+                        <img className="m-cols-1" src={ course.image } alt={ course.titulo }/>
+                        <p className="m-cols-2">Profesor: { course.professor }</p>
+                    </div>
+                    <div>
+                        <h2>Escribe tu comentario</h2>
+                        
+                        <input type="text" placeholder="Escribe..." onChange={myComment.bind(this)} />
+                        <p>{comment}</p>
+                    </div>
+                   
+            </>
+
+           
+           ) : 
+                
+                    <h1>El curso no existe</h1>
+         
         }
-    }
-
-    componentDidMount() {
-        axios.get(`https://my-json-server.typicode.com/barale2906/json-db/cursos/${this.props.match.params.id}`)
+        </div>        
         
-        .then(resp=> this.setState({
-                    cursoActual: resp.data
-            }))
-        
-
-          
-    }
-
-    render(){
-
-        return (
-
-            <div className="ed-grid m-grid-3">   
-            { 
-            this.state.cursoActual ? (
-    
-                <>
-                        <h1 className="m-cols-1">Curso: { this.state.cursoActual.titulo }</h1>
-                        <img className="m-cols-1" src={ this.state.cursoActual.image } alt={ this.state.cursoActual.titulo }/>
-                        <p className="m-cols-2">Profesor { this.state.cursoActual.profesor }</p>
-                </>
-    
-               
-               ) : 
-                    
-                        <h1>El curso no existe</h1>
-             
-            }
-            </div>        
-            
-        )
-
-    }
-
-
-    
-
-    
+    )
 
 }
     
-
 
 export default Course
