@@ -1,11 +1,16 @@
 import React from "react"
 import CourseGrid from "../organismos/CourseGrid"
-import { connect } from "react-redux"
+import CoursesContext from "../Context/CoursesContext"
 
-const Courses = ({courses}) => < CourseGrid courses={courses}/>
 
-const mapsStateToProps = state => ({
-    courses: state.coursesReducer.courses
-})
 
-export default connect(mapsStateToProps,{})(Courses)
+const Courses = () => (
+
+    
+        <CoursesContext.Consumer>
+            { context => <CourseGrid courses={context.courses}/> }
+        </CoursesContext.Consumer>
+    
+);
+
+export default Courses
