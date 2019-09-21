@@ -1,13 +1,19 @@
-import { createStore } from "redux"
-import { ADD_TO_CART, DELETE_FROM_CART } from "./actions"
+import { createStore, combineReducers, applyMiddleware } from "redux"
+import { ADD_TO_CART, DELETE_FROM_CART, GET_COURSE_LIST } from "./actions"
 import { composeWithDevTools } from "redux-devtools-extension"
+import thunk from "redux-thunk"
 
 
 const initialStore = {
     cart: []
+   
 }
 
-const rootReducer = (state = initialStore, {type, id})=> { // en este caso action (que es un objeto por eso se puede) fue reemplazado por {type,id}
+const initialCourses ={
+    courses: []
+}
+
+const cartReducer = (state = initialStore, {type, id})=> { // en este caso action (que es un objeto por eso se puede) fue reemplazado por {type,id}
 
     
 
@@ -33,4 +39,16 @@ const rootReducer = (state = initialStore, {type, id})=> { // en este caso actio
 
 }
 
-export default createStore(rootReducer,composeWithDevTools())
+const coursesReducer = (state = initialCourses,action) =>{
+
+    if(action.type === GET_COURSE_LIST){
+        return{
+            ...state,
+            courses: action.courses
+        }
+    }
+    
+    return state
+}
+
+export default createStore(combineReducers({cartReducer, coursesReducer}), composeWithDevTools(applyMiddleware(thunk)))
