@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom"
+import { addToCart,deleteFromCart } from '../../redux/actionCreators'
+import { connect } from 'react-redux'
+
+
 
 //const mayorDeEdad = edad => edad > 18
 //const persona = {"nombre":"Alexander", "Apellido":"Barajas", "edad":22, "imagen":"https://drupal.ed.team/sites/default/files/styles/16_9_medium/public/imagenes-cdn-edteam/2019-07/PremiereDesdeCero.png", 
@@ -8,7 +12,7 @@ import { Link } from "react-router-dom"
 
 //}
 
-const CourseCard = ({id,title, image, price, profesor}) => (
+const CourseCard = ({id,title, image, price, profesor,addCourseToCart,cart,deleteCourseFromCart}) => (
 
     <article className="card" id="{title}">
       <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
@@ -36,7 +40,27 @@ const CourseCard = ({id,title, image, price, profesor}) => (
           
         </div>
         <div className="s-main-center">
-          {`$ ${price}`}
+          {
+            cart.find(a=>a===id)
+            ?
+            <button className="button--ghost-alert button--tiny" 
+            onClick={()=> deleteCourseFromCart(id)}>
+              Remover del carrito
+            </button>
+            :
+            <button className="button--ghost-alert button--tiny" 
+            onClick={()=> addCourseToCart(id)}>
+  
+              {
+                
+                
+                `$ ${price} USD`
+  
+              }
+            </button>
+          }
+         
+          
         </div>
       </div>
     </article>
@@ -59,4 +83,21 @@ CourseCard.defaultProps ={
 
 }
 
-export default CourseCard
+
+
+const mapStateToProps = state =>({
+  cart: state.cart
+})
+
+const mapDispatchToProps = dispatch =>({
+    addCourseToCart(id) {
+      dispatch(addToCart(id))
+
+  },
+  deleteCourseFromCart(id){
+    dispatch(deleteFromCart(id))
+  }
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseCard) 
