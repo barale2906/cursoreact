@@ -1,16 +1,19 @@
-import React from "react"
+import React, { useContext } from "react"
 import CourseGrid from "../organismos/CourseGrid"
 import CoursesContext from "../Context/CoursesContext"
 
 
 
-const Courses = () => (
+const Courses = () => {
 
-    
-        <CoursesContext.Consumer>
-            { context => <CourseGrid courses={context.courses}/> }
-        </CoursesContext.Consumer>
-    
-);
+    const { courses } = useContext(CoursesContext)
+
+    return(
+        
+        
+            <CourseGrid courses={courses}/>
+        
+    )
+};
 
 export default Courses
